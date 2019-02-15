@@ -50,9 +50,26 @@ module.exports = (db, name, opts) => {
   // GET /name?_embed=&_expand=
   function list(req, res, next) {
     // Resource chain
-    let chain = db.get(name)
+    let chain = db.get(name)  
+    let object = { 'a': 1, 'b': '2', 'c': 3 };
+    let tst
+    let teste =  _.omit(object, ['a', 'c'])
+    let chainReduced = {};
+    
 
-    // Remove q, _start, _end, ... from req.query to avoid filtering using those
+
+
+    chain = chain.cloneDeep().forEach(function(element) {
+     element =  _.omit(element, ['msisdn'])
+       // chainReduced.push(element);
+      _.assign(chainReduced, element);
+        //chainReduced.push(element);
+    })
+     
+      //chain = chainReduced
+
+
+    // Removeq, _start, _end, ... from req.query to avoid filtering using those
     // parameters
     let q = req.query.q
     let _start = req.query._start
@@ -99,8 +116,18 @@ module.exports = (db, name, opts) => {
 
       q = q.toLowerCase()
 
+      chain = _.map(chain, object => {
+        // return from _.omit
+        return _.omit(object, ['msisdn']);
+      })
+      console.log('inicio')
+      console.log(chain)
+
       chain = chain.filter(obj => {
         for (let key in obj) {
+          
+          
+          
           const value = obj[key]
           if (db._.deepQuery(value, q)) {
             return true
@@ -108,7 +135,7 @@ module.exports = (db, name, opts) => {
         }
       })
     }
-
+    
     Object.keys(req.query).forEach(key => {
       // Don't take into account JSONP query parameters
       // jQuery adds a '_' query parameter too
@@ -121,7 +148,7 @@ module.exports = (db, name, opts) => {
             .map(function(value) {
               const isDifferent = /_ne$/.test(key)
               const isRange = /_lte$/.test(key) || /_gte$/.test(key)
-              const isLike = /_like$/.test(key)
+              const isLike = /_like$/.test(key) 
               const path = key.replace(/(_lte|_gte|_ne|_like)$/, '')
               // get item value based on path
               // i.e post.title -> 'foo'

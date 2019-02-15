@@ -4,7 +4,8 @@ const pluralize = require('pluralize')
 module.exports = {
   getRemovable,
   createId,
-  deepQuery
+  deepQuery, 
+  teste
 }
 
 // Returns document ids that have unsatisfied relations
@@ -76,4 +77,14 @@ function deepQuery(value, q) {
       return true
     }
   }
+}
+
+function teste(value, q) {
+  const _ = this
+
+
+  console.log(teste + 'aaaaaa')
+
+ 
+  
 }
