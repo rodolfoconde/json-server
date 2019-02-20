@@ -188,7 +188,7 @@ module.exports = (db, name, opts) => {
     // Slice result
     if (_end || _limit || _page) {
       res.setHeader('X-Total-Count', chain.size())
-      res.setHeader('X-Total-Count', _page)
+      res.setHeader('X-Page', _page)
       res.setHeader(
         'Access-Control-Expose-Headers',
         `X-Total-Count${_page ? ', Link' : ''}`
