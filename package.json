@@ -2,8 +2,8 @@
   "name": "json-server",
   "version": "0.14.2",
   "description": "Serves JSON files through REST routes.",
-  "main": "./lib/server/index.js",
-  "bin": "./lib/cli/bin.js",
+  "main": "./src/server/index.js",
+  "bin": "./src/cli/bin.js",
   "directories": {
     "test": "test"
   },
