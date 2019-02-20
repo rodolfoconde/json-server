@@ -90,10 +90,6 @@
     "webpack-cli": "^3.1.2",
     "whatwg-fetch": "^3.0.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/typicode/json-server.git"
-  },
   "keywords": [
     "JSON",
     "server",
